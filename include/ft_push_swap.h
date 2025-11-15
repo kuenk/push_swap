@@ -15,6 +15,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+#include <stdio.h>
+
 typedef struct t_swap
 {
 	int				content;

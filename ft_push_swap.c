@@ -18,15 +18,18 @@ static void	ft_sign(char *list)
 	int	i;
 
 	i = 0;
+	if (list == NULL || list[i] == '\0')
+		ft_exit();
 	if (list[i] == '+' || list[i] == '-')
 		i++;
-	if (list[0] == '\0')
-		ft_exit();
 	while (list[i] != '\0')
 	{
-		if (ft_isdigit(list[i]) != '0')
+		printf("%c \n", list[i]);
+		printf("digit %d \n", ft_isdigit(list[i]));
+		if (ft_isdigit(list[i]) == 0)
 			ft_exit();
 		i++;
+		printf("i %d", i);
 	}
 }
 
@@ -36,7 +39,7 @@ void	ft_validation(int argc, char **argv, t_swap **stack_a)
 	int		n;
 	char	**new_list;
 
-	i = 0;
+	i = 1;
 	while (i != argc)
 	{
 		new_list = ft_split(argv[i], ' ');
@@ -45,10 +48,11 @@ void	ft_validation(int argc, char **argv, t_swap **stack_a)
 		n = 0;
 		while (new_list[n] != NULL)
 		{
+			printf("vuelta %d %s\n", n, new_list[n]);
 			ft_sign(new_list[n]);
 			ft_add_node(ft_atoi(new_list[n]), stack_a);
-			n++;
 			free(new_list[n]);
+			n++; 
 		}
 		free(new_list);
 		i++;
@@ -63,6 +67,8 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 //	stack_b = NULL;
 	if (argc > 1)
+	{
 		ft_validation(argc, argv, &stack_a);
+	}
 	return (1);
 }

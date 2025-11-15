@@ -21,7 +21,6 @@ static void	ft_add_back(t_swap **list, t_swap *new)
 	if (*list == NULL)
 	{
 		*list = new;
-		return ();
 	}
 	else
 	{
@@ -46,7 +45,7 @@ static t_swap	*ft_new_list(int content)
 void	ft_add_node(int num, t_swap **stack_a)
 {
 	t_swap	*node;
-
+	printf("entro a node");
 	node = ft_new_list(num);
 	ft_add_back(stack_a, node);
 }
