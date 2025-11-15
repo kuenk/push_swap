@@ -26,8 +26,8 @@ static void	ft_add_back(t_swap **list, t_swap *new)
 	{
 		while (cont->next != NULL)
 			cont = cont->next;
+		cont->next = new;
 	}
-	cont->next = new;
 }
 
 static t_swap	*ft_new_list(int content)
