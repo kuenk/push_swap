@@ -1,16 +1,22 @@
 NAME	= push_swap
-SRCS   	= ft_push_swap.c
+SRC   	= ft_push_swap.c src/ft_utilities.c src/ft_lists.c
 CFLAGS	= -Wall -Wextra -Werror
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+INCLUDE = -I include -I $(LIBFT_DIR)
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRC:.c=.o)
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
 $(NAME) : $(OBJS)
-	ar -crs $@ $^
+	cc $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft -o $(NAME) $(INCLUDE)
 
 %.o : %.c
-	cc -c $(CFLAGS) $< -o $@
+	cc $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
 	rm -f *.o
