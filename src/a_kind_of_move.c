@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_push_swap.c                                     :+:      :+:    :+:   */
+/*   ft_a_kind_of_move.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dcuenca <dcuenca@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 18:46:56 by dcuenca           #+#    #+#             */
-/*   Updated: 2025/11/15 15:43:28 by dcuenca          ###   ########.fr       */
+/*   Created: 2025/11/15 15:44:03 by dcuenca           #+#    #+#             */
+/*   Updated: 2025/11/15 15:44:04 by dcuenca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_push_swap.h"
-#include "libft.h"
+#include <ft_push_swap.h>
 
-int	main(int argc, char **argv)
+void	ft_swap(t_swap **stack, char *rslt)
 {
-	t_swap	*stack_a;
-//	t_list	*stack_b;
+	int	aux;
 
-	stack_a = NULL;
-//	stack_b = NULL;
-	if (argc > 1)
+	if (*stack != NULL && (*stack)->next != NULL)
 	{
-		ft_validation(argc, argv, &stack_a);
-		if (ft_check_order(&stack_a) == 1)
-			return (0);
-		ft_sort(&stack_a);
-
+		aux = (*stack)->content;
+		(*stack)->content = (*stack)->next->content;
+		(*stack)->next->content = aux;
+		write(1, rslt, 3);
 	}
-	return (1);
+}
+
+void	ft_swap_ab(t_swap **stack_a, t_swap **stack_b)
+{
+
+	ft_swap(stack_a, NULL);
+	ft_swap(stack_b, NULL);
+	write(1, "ss\n", 3);
 }

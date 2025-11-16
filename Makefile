@@ -1,5 +1,5 @@
 NAME	= push_swap
-SRC   	= ft_push_swap.c src/ft_utilities.c src/ft_lists.c
+SRC   	= ft_push_swap.c src/ft_utilities.c src/ft_lists.c src/ft_validation.c src/ft_sort.c src/a_kind_of_move.c
 CFLAGS	= -Wall -Wextra -Werror
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a

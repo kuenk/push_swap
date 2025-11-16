@@ -11,7 +11,32 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-#include "libft.h"
+
+int	ft_duplicates(int value, t_swap **stack_a)
+{
+	t_swap	*cur_elem;
+
+	cur_elem = *stack_a;
+	while (cur_elem != NULL)
+	{
+		if (cur_elem->content == value)
+			return (1);
+		cur_elem = cur_elem->next;
+	}
+	return (0);
+}
+
+static t_swap	*ft_new_item(int content)
+{
+	t_swap	*new_node;
+
+	new_node = (t_swap *)malloc(sizeof(t_swap));
+	if (new_node == NULL)
+		return (NULL);
+	new_node->content = content;
+	new_node->next = NULL;
+	return (new_node);
+}
 
 static void	ft_add_back(t_swap **list, t_swap *new)
 {
@@ -30,22 +55,23 @@ static void	ft_add_back(t_swap **list, t_swap *new)
 	}
 }
 
-static t_swap	*ft_new_list(int content)
+void	ft_free_stack(t_swap **stack)
 {
-	t_swap	*new_node;
-
-	new_node = (t_swap *)malloc(sizeof(t_swap));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->content = content;
-	new_node->next = NULL;
-	return (new_node);
+	if (!stack || !(*stack))
+		return ;
+	ft_free_stack(&(*stack)->next);
+	free(*stack);
+	*stack = NULL;
 }
 
 void	ft_add_node(int num, t_swap **stack_a)
 {
 	t_swap	*node;
-	printf("entro a node");
-	node = ft_new_list(num);
+	int		flag_repeat;
+
+	flag_repeat = ft_duplicates(num, stack_a);
+	if (flag_repeat == 1)
+		ft_exit();
+	node = ft_new_item(num);
 	ft_add_back(stack_a, node);
 }
