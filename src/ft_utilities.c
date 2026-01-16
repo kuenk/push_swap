@@ -6,7 +6,7 @@
 /*   By: dcuenca <dcuenca@student.42madrid.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/12 18:30:22 by dcuenca           #+#    #+#             */
-/*   Updated: 2025/11/14 22:13:29 by dcuenca          ###   ########.fr       */
+/*   Updated: 2026/01/11 01:32:06 by dcuenca          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,47 +17,62 @@ void	ft_exit(void)
 	write (2, "Error\n", 6);
 	exit (EXIT_FAILURE);
 }
-
-long	ft_atoi_l(const char *str)
+int	ft_check_dupli(int content, t_swap **stack_a)
 {
-	long	result;
-	int		i;
-	int		sign;
+	t_swap	*current;
 
-	i = 0;
-	result = 0;
-	sign = 1;
-	while (str[i] == '\r' || str[i] == '\t' || str[i] == '\n' || str[i] == '\f'
-		|| str [i] == ' ' || str[i] == '\v')
-		i++;
-	if (str[i] == '-')
+	current = *stack_a;
+	while (current != NULL)
 	{
-		sign = -1;
-		i++;
+		if (current->content == content)
+			return (1);
+		current = current->next;
 	}
-	else if (str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = result * 10 + (str[i] - '0');
-		if ((result * sign) < INT_MIN || (result * sign) > INT_MAX)
-			return ((long)INT_MAX + 1);
-		i++;
-	}
-	return (sign * result);
+	return (0);
+}
+void	ft_stack_clear(t_swap **stack)
+{
+	if (!stack || !(*stack))
+		return ;
+	ft_stack_clear(&(*stack)->next);
+	free(*stack);
+	*stack = NULL;
 }
 
-int	ft_check_order(t_swap **stack_a)
+int	ft_is_ordered(t_swap **stack_a)
 {
-	t_swap *pre;
+	t_swap	*temp;
 
-	pre = *stack_a;
-	while(pre->next != NULL)
+	temp = *stack_a;
+	while (temp->next != NULL)
 	{
-		if (pre->content > pre->next->content)
+		if (temp->content > temp->next->content)
 			return (0);
-		pre = pre->next;
+		temp = temp->next;
 	}
-	ft_free_stack(stack_a);
 	return (1);
+}
+
+int	ft_min_val(t_swap *stack_a)
+{
+	t_swap	*current;
+	int		min_number;
+	int	pos;
+	int min_pos;
+
+	pos = 0;
+	min_pos = 0;
+	current = stack_a;
+	min_number = current->content;
+	while (current != NULL)
+	{
+		if (current->content < min_number)
+		{
+			min_number = current->content;
+			min_pos = pos;
+		}
+		pos++;	
+		current = current->next;
+	}
+	return (min_pos);
 }

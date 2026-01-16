@@ -1,6 +1,12 @@
 NAME	= push_swap
-SRC   	= ft_push_swap.c src/ft_utilities.c src/ft_lists.c src/ft_validation.c src/ft_sort.c src/a_kind_of_move.c
-CFLAGS	= -Wall -Wextra -Werror
+SRC   	= ft_push_swap.c \
+			src/ft_utilities.c \
+			src/ft_lists.c \
+			src/less_than_five.c \
+			src/ft_opers_one.c \
+			src/radix.c
+			
+CFLAGS	= -Wall -Wextra -Werror 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INCLUDE = -I include -I $(LIBFT_DIR)
