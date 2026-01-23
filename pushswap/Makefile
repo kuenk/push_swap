@@ -1,0 +1,32 @@
+NAME	= push_swap
+SRC   	= ft_push_swap.c \
+			src/ft_utilities.c \
+			src/ft_lists.c \
+			src/less_than_five.c \
+			src/ft_opers_one.c \
+			src/radix.c \
+			src/ft_split.c \
+			src/libft.c
+			
+CFLAGS	= -Wall -Wextra -Werror 
+INCLUDE = -I include
+
+OBJS = $(SRC:.c=.o)
+
+all: $(NAME)
+
+$(NAME) : $(OBJS)
+	cc $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o : %.c
+	cc $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY : clean fclean re all
